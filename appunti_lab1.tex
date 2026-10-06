@@ -1289,4 +1289,55 @@ Intervallo: \qquad $10^{n}$
 \]
 \end{formulabox}
 
+% ------------------------------------------------------------
+\section{Scala non lineare}
+\subsection*{Scala logaritmica}
+
+\centering
+\begin{tikzpicture}
+  % --- scala lineare (1 cm = 100 unità) ---
+  \node[anchor=west] at (0,3.0) {Scala lineare};
+  \draw[->] (0,2) -- (10.6,2);
+  \foreach \x in {0,...,10}
+    \draw (\x,2) -- (\x,2.1);
+  \foreach \x in {0,2,...,10} {
+    \pgfmathtruncatemacro{\v}{100*\x}
+    \node[above, font=\footnotesize] at (\x,2.1) {\v};
+  }
+
+  % --- scala logaritmica (una decade = 10/3 cm) ---
+  \node[anchor=west] at (0,-1.0) {Scala logaritmica};
+  \draw[->] (0,0) -- (10.6,0);
+  \foreach \d in {0,1,2}
+    \foreach \m in {2,...,9}
+      \draw ({10/3*(\d+log10(\m))},0) -- ({10/3*(\d+log10(\m))},-0.06);
+  \foreach \d in {0,...,3}
+    \draw ({10/3*\d},0) -- ({10/3*\d},-0.12)
+      node[below, font=\footnotesize] {$10^{\d}$};
+
+  % --- stessi valori sulle due scale ---
+  \foreach \d in {0,...,3} {
+    \draw[dashed, gray] ({10^\d/100},2) -- ({10/3*\d},0);
+    \fill[red] ({10^\d/100},2) circle (1.5pt);
+    \fill[red] ({10/3*\d},0) circle (1.5pt);
+  }
+\end{tikzpicture}
+
+In una scala lineare la posizione di un valore $x$ sull'asse è proporzionale
+a $x$: a distanze uguali corrispondono \emph{differenze} uguali (ad esempio
+tra $100$ e $200$ c'è la stessa distanza che tra $800$ e $900$). In una scala
+logaritmica la posizione è invece proporzionale a $\log_{10} x$: a distanze
+uguali corrispondono \emph{rapporti} uguali, per cui ogni decade
+($1$--$10$, $10$--$100$, $100$--$1000$) occupa la stessa lunghezza. Per
+questo motivo le tacche intermedie si addensano verso la fine di ogni decade
+e lo zero non è rappresentabile, poiché $\log_{10} 0$ non è definito.
+
+Come mostra la figura~\ref{fig:scale}, la scala logaritmica è utile quando i
+dati coprono più ordini di grandezza: su una scala lineare i valori piccoli
+sarebbero indistinguibili, mentre su quella logaritmica ogni ordine di
+grandezza ha lo stesso peso visivo. Inoltre, in scala logaritmica un
+andamento esponenziale (asse $y$ logaritmico) o una legge di potenza
+(entrambi gli assi logaritmici) appaiono come una retta.
+
 \end{document}
+
